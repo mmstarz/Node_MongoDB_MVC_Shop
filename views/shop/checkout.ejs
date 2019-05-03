@@ -1,0 +1,47 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <%- include('../includes/navigation.ejs') %>
+    <% if (errorMessage.length) { %>
+        <div class="user-message user-message__error">
+            <h4><%= errorMessage %></h4>
+        </div>
+    <% } %>
+    <% if (successMessage.length)  {%>
+        <div class="user-message user-message__success">
+            <h4><%= successMessage %></h4>
+        </div>
+    <% } %>
+    <% if (prods.length > 0) { %>
+    <div class="checkout">                
+        <% for (prod of prods) { %>
+            <ul class="checkout-list">
+                <li class="checkout-list__title">
+                    <h3>Title: "<%= prod.productId.title %>"</h3>
+                </li>
+                <li class="checkout-list__qty">
+                    <h3>Quantity: <%= prod.quantity %></h3>
+                </li>
+            </ul>
+        <% } %>            
+        <div class="checkout-sum">
+            <h2>Total: $ <%= totalSum %></h2>
+        </div>
+        <div>
+            <form action="/create-order" method="POST">
+                <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_xaTIuQ3FvjNLtBmR3tKRr3d4"
+                    data-amount="<%= totalSum * 100 %>"
+                    data-name="Your Order"
+                    data-description="Ordered Items"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-currency="usd">
+                </script>
+            </form>
+        </div>
+    </div>   
+    <% } %>
+    <%- include('../includes/end.ejs') %>

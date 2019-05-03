@@ -1,0 +1,63 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">   
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+        <% if(errorMessage.length) { %>
+            <div class="user-message user-message__error">
+                <h4><%= errorMessage %></h4>
+            </div>
+        <% } %>
+        <form class="product-form" action="/admin/add-product" method="POST" enctype="multipart/form-data">
+            <div class="form-control">
+                <label for="title">Title</label>
+                <input                    
+                    class="<%= validationSuccess.title === 'title' ? 'valid' : '' %>
+                    <%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %>"
+                    id="title"
+                    type="text"
+                    name="title"
+                    value="<% if (hasError) {%><%= oldInput.title %><% } %>">
+            </div>
+            <!-- <div class="form-control">
+                <label for="imageUrl">Image URL</label>
+                <input
+                    class="<%= validationSuccess.imageUrl === 'imageUrl' ? 'valid' : '' %>
+                    <%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : '' %>"
+                    id="imageUrl"
+                    type="text"
+                    name="imageUrl"
+                    value="<% if (hasError) {%><%= oldInput.imageUrl %><% } %>">
+            </div> -->
+            <div class="form-control">
+                <label for="image">Image</label>
+                <input                                        
+                    id="image"
+                    type="file"
+                    name="image">
+            </div>            
+            <div class="form-control">
+                <label for="price">Price</label>
+                <input
+                    class="<%= validationSuccess.price === 'price' ? 'valid' : '' %>
+                    <%= validationErrors.find(e => e.param === 'price') ? 'invalid' : '' %>"
+                    id="price"
+                    type="number"
+                    step="0.01"
+                    name="price"
+                    value="<% if (hasError) {%><%= oldInput.price %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>                
+                <textarea
+                    class="<%= validationSuccess.description === 'description' ? 'valid' : '' %>
+                    <%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %>"
+                    id="description"
+                    name="description"
+                    rows="5"><% if (hasError) {%><%= oldInput.description %><% } %></textarea>
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Add Product</button>
+        </form>
+<%- include('../includes/end.ejs') %>

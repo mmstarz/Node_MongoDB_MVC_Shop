@@ -1,0 +1,50 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+        <% if (prods.length) { %>
+            <div class="list-header">
+                <h1>Products</h1>                
+            </div>
+            <div class="grid">
+                <% for (let prod of prods) { %>
+                    <div class="cardContainer inactive">
+                        <article class="card">
+                            <div class="card-front">
+                                <header class="card__header">
+                                    <h1 class="product__title"><%= prod.title %></h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="/<%= prod.imageUrl %>" alt="<%= prod.title %>">
+                                </div>
+                                <div class="card__content">
+                                    <h2 class="product__price">$<%= prod.price %></h2>
+                                    <p class="product__description"><%= prod.description %></p>
+                                </div>
+                                <div class="card__actions">
+                                    <a href="/products/<%= prod._id %>" class="btn">Details</a>
+                                    <% if (isAuthenticated) { %>
+                                        <%- include('../includes/addtocart.ejs', {prod: prod}) %>
+                                    <% } %>
+                                </div>                        
+                            </div>
+                        </article>
+                    </div>                    
+                <% } %>                
+            </div>
+            <%- include('../includes/pagination.ejs', {
+                pagination: pagination,
+                currPage: currPage,
+                hasNextPage: hasNextPage,
+                hasPrevPage: hasPrevPage,
+                nextPage: nextPage,
+                prevPage: prevPage,
+                lastPage: lastPage
+            }) %>
+        <% } else { %>        
+            <div class="list-header">
+                <h1>No Products left</h1>
+            </div>
+        <% } %>
+<%- include('../includes/end.ejs') %>

@@ -1,0 +1,39 @@
+<% for (let prod of prods) { %>
+    <div class="cardContainer inactive">
+        <article class="card">
+            <div class="card-front">
+                <header class="card__header">
+                    <h1 class="product__title"><%= prod.title %></h1>
+                </header>
+                <div class="card__image">
+                    <img src="/<%= prod.imageUrl %>" alt="<%= prod.title %>">
+                </div>
+                <div class="card__content">
+                    <h2 class="product__price">$<%= prod.price %></h2>
+                    <p class="product__description"><%= prod.description %></p>
+                </div>
+                <div class="card__actions">
+                    <button class="btn" id="showBack">info</button>
+                    <%if (isAuthenticated) {%>
+                        <%- include('../includes/addtocart.ejs', {prod: prod}) %>
+                    <% } %>
+                </div>                        
+            </div>
+
+            <div class="card-back">
+                <div class="card__content">
+                    <h2>Product info </h2>
+                    <h3>Title: <%= prod.title %></h3>
+                    <p>Description: <%= prod.description %></p>
+                </div>
+                <div class="card__content">
+                    <h2>Owner info</h2>                    
+                    <h4>Email: <%= prod.userEmail %></h4>
+                </div>                
+                <div class="card__actions">                    
+                    <button class="btn" id="showFront">back</button>
+                </div>
+            </div>
+        </article>
+    </div>
+<% } %>    

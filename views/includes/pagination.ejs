@@ -1,0 +1,43 @@
+<% if (pagination) { %>
+    <section class="pagination">    
+        <% if (currPage !== 1 && prevPage !== 1) { %>
+        <div class="pagination-container">
+            <div class="pagination__link">
+                <a href="?page=1">1</a>
+            </div>
+        </div>
+        <div class="dots">
+            <span>...</span>        
+        </div>
+        <% } %>
+        <% if (hasPrevPage) { %>
+        <div class="pagination-container">
+            <div class="pagination__link">
+                <a href="?page=<%= prevPage %>"><%= prevPage %></a>
+            </div>
+        </div>
+        <% } %>
+        <div class="pagination-container">
+            <div class="pagination__link active">
+                <a href="?page=<%= currPage %>"><%= currPage %></a>
+            </div>
+        </div>
+        <% if (hasNextPage) { %>
+        <div class="pagination-container">
+            <div class="pagination__link">
+                <a href="?page=<%= nextPage %>"><%= nextPage %></a>
+            </div>
+        </div>
+        <% } %>
+        <% if (lastPage !== currPage && nextPage !== lastPage) { %>
+        <div class="dots">
+            <span>...</span>        
+        </div>
+        <div class="pagination-container">
+            <div class="pagination__link">
+                <a href="?page=<%= lastPage %>"><%= lastPage %></a>
+            </div>
+        </div>
+        <% } %>
+    </section>
+<% } %>

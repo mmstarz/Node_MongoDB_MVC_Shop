@@ -1,0 +1,119 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+        <% if(errorMessage.length) {%>
+            <div class="user-message user-message__error">
+                <h4><%= errorMessage %></h4>
+            </div>
+        <% } %>
+        <% if (prods.length) { %>
+            <div class="list-header">
+                <h1>Products</h1>                
+                <% if(successMessage.length) {%>
+                    <div class="user-message user-message__success">
+                        <h4><%= successMessage %></h4>
+                    </div>
+                <% } %>                
+            </div>
+            <div class="grid">
+                <% for (let prod of prods) { %>
+                    <article class="adminCardContainer inactive">
+                        <div class="adminCard">
+                            <div class="adminCard-front">
+                                <header class="card__header">
+                                    <h1 class="product__title"><%= prod.title %></h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="/<%= prod.imageUrl %>" alt="<%= prod.title %>">
+                                </div>
+                                <div class="card__content">
+                                    <h2 class="product__price">$<%= prod.price %></h2>
+                                    <p class="product__description"><%= prod.description %></p>
+                                </div>
+                                <div class="card__actions">
+                                    <button class="btn" id="showEdit">Edit</button>                                    
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <input type="hidden" name="productId" value="<%= prod._id %>">
+                                    <button type="button" class="rmbtn" onclick="deleteProduct(this)">Delete</button>                                    
+                                </div>                        
+                            </div>
+                
+                            <div class="adminCard-back">
+                                <form class="adminCard__product-form" action="/admin/edit-product" method="POST" enctype="multipart/form-data">
+                                    <div class="adminCard__form-control">
+                                        <label for="title">Title</label>
+                                        <input
+                                            id="title"
+                                            type="text"
+                                            name="title"
+                                            value="<%= prod.title %>">
+                                    </div>
+                                    <div class="adminCard__form-control">
+                                        <label for="image">Image</label>
+                                        <input                                        
+                                            id="image"
+                                            type="file"
+                                            name="image">
+                                        <input type="hidden" name="oldImageUrl" value="<%= prod.imageUrl %>">
+                                    </div>
+
+                                    <!-- <div class="adminCard__form-control">
+                                        <label for="imageUrl">Image URL</label>
+                                        <input
+                                            id="imageUrl"
+                                            type="text"
+                                            name="imageUrl"
+                                            value="<%= prod.imageUrl %>">
+                                    </div> -->            
+                                    <div class="adminCard__form-control">
+                                        <label for="price">Price</label>
+                                        <input
+                                            id="price"
+                                            type="number"
+                                            step="0.01"
+                                            name="price"
+                                            value="<%= prod.price %>">
+                                    </div>
+                                    <div class="adminCard__form-control">
+                                        <label for="description">Description</label>                
+                                        <textarea
+                                            id="description"
+                                            name="description"
+                                            rows="5"><%= prod.description %></textarea>
+                                    </div>
+                                    <div class="adminCard__form-control">
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <input type="hidden" name="productId" value="<%= prod._id %>">                                    
+                                        <button class="btn" type="submit">Update Product</button>                                        
+                                    </div>
+                                </form>
+                                <div class="adminCard-actions">
+                                    <button class="rmbtn" id="showAdminCard">back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                <% } %>
+            </div>
+            <%- include('../includes/pagination.ejs', {
+                pagination: pagination,
+                currPage: currPage,
+                hasNextPage: hasNextPage,
+                hasPrevPage: hasPrevPage,
+                nextPage: nextPage,
+                prevPage: prevPage,
+                lastPage: lastPage
+            }) %>
+        <% } else { %>        
+            <div class="list-header">
+                <h1>No Products left</h1>
+            </div>
+        <% } %>
+    </main>
+    <script src="/js/main.js"></script>
+    <script src="/js/admin.js"></script>
+    </body>
+    
+</html>

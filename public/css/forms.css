@@ -1,0 +1,49 @@
+.login-form {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+    display: block;
+}
+
+.signup-form {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+    display: block;
+}
+
+.form-control {
+    margin: 1rem 0;
+}
+
+.form-control label,
+.form-control input,
+.form-control textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.25rem;
+}
+
+.form-control input,
+.form-control textarea {
+    margin: 0.5rem 0;
+    border: 1px solid #a1a1a1;
+    border-radius: 2px;    
+    font: small-caption;
+    font-size: 1.2rem;
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
+    outline-color: #2c62a0;
+}
+
+
+.form-control .invalid {
+    border: 2px solid red;
+}
+
+
+.form-control .valid {
+    border: 2px solid green;
+}

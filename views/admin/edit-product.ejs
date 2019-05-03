@@ -1,0 +1,36 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">   
+</head>
+
+<%- include('../includes/navigation.ejs') %>
+        <form class="product-form" action="/admin/<% if (editing) { %>edit-product<%} else {%>add-product<% } %>" method="POST">
+            <div class="form-control">
+                <label for="title">Title</label>
+                <input id="title" type="text" name="title" value="<% if (editing) {%><%= prod.title %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="imageUrl">Image URL</label>
+                <input id="imageUrl" type="text" name="imageUrl" value="<% if (editing) {%><%= prod.imageUrl %><% } %>">
+            </div>            
+            <div class="form-control">
+                <label for="price">Price</label>
+                <input id="price" type="number" step="0.01" name="price" value="<% if (editing) {%><%= prod.price %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>                
+                <textarea id="description" name="description" rows="5"><% if (editing) {%><%= prod.description %><% } %></textarea>
+            </div>
+            <% if(editing) { %>
+                <input type="hidden" name="productId" value="<%= prod._id %>">
+            <% } %>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">
+                <% if(editing) { %>
+                Update Product
+                <% } else { %>
+                Add Product
+                <% } %>
+            </button>
+        </form>
+<%- include('../includes/end.ejs') %>
